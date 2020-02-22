@@ -1,0 +1,15 @@
+{
+    "clients": [
+        {
+            "id": "1",
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        {
+            "id": "2",
+            "firstname": "Napoleon",
+            "lastname": "Carino"
+        }
+    ],
+    "shipping_addresses": []
+}
