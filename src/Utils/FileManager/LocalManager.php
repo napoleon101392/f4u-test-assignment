@@ -43,7 +43,7 @@ class LocalManager implements FileManagerInterface
     /**
      * Override the file
      *
-     * @param string $data
+     * @param array $data
      * @param string $table
      *
      * @return boolean

@@ -17,7 +17,7 @@ interface FileManagerInterface
      * @param array $data
      * @param string $table
      *
-     * @return mixed
+     * @return boolean
      */
     public function add($data, $entity);
 
