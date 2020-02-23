@@ -24,9 +24,9 @@ class ClientRepository
     }
 
     /**
-     * Undocumented function
+     * Gets all the clients
      *
-     * @return void
+     * @return mixed
      */
     public function getClients()
     {
@@ -34,9 +34,10 @@ class ClientRepository
     }
 
     /**
-     * Undocumented function
+     * Gets all the Shipping addresses
+     * created on all clients
      *
-     * @return void
+     * @return mixed
      */
     public function getAddresses()
     {
@@ -44,11 +45,11 @@ class ClientRepository
     }
 
     /**
-     * Undocumented function
+     * Gets the address of a client selected
      *
      * @param [type] $clientId
      *
-     * @return void
+     * @return mixed
      */
     public function getAddressesByClient($clientId)
     {
@@ -56,11 +57,11 @@ class ClientRepository
     }
 
     /**
-     * Undocumented function
+     * Adding shipping address to specified client
      *
      * @param array $data
      *
-     * @return void
+     * @return mixed
      */
     public function addShippingAddress(array $data)
     {
@@ -88,12 +89,12 @@ class ClientRepository
     }
 
     /**
-     * Undocumented function
+     * Removing the specified address for specified client
      *
-     * @param [type] $clientId
-     * @param [type] $addressId
+     * @param string $clientId
+     * @param string $addressId
      *
-     * @return void
+     * @return mixed
      */
     public function removeAddress($clientId, $addressId)
     {
@@ -101,7 +102,6 @@ class ClientRepository
             return $record->id == $addressId && $record->client_id == $clientId;
         });
 
-        // Throw Exception if DELETING the default
         array_map(function ($record) {
             if ($record->is_default) {
                 throw new DefaultAddressNotRemovableException('Record not removable ' . json_encode($record));
@@ -112,12 +112,12 @@ class ClientRepository
     }
 
     /**
-     * Undocumented function
+     * Update an address
      *
-     * @param [type] $addressId
+     * @param string $addressId
      * @param array $data
      *
-     * @return void
+     * @return mixed
      */
     public function updateAddress($addressId, array $data)
     {
