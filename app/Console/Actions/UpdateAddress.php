@@ -17,40 +17,46 @@ class UpdateAddress extends BaseAction
             return;
         }
 
-        $addresses = $this->repository->getAddressesByClient($this->client);
-        $helper = $this->helper;
+        try {
+            $addresses = $this->repository->getAddressesByClient($this->client);
+            $helper = $this->helper;
+    
+            foreach ($addresses as $value) {
+                $default = $value->is_default ? 'Yes' : 'No';
+    
+                $address[$value->id] = $value->country . " | Default: " . $default;
+            }
+    
+            $question = new ChoiceQuestion('Choose address to update: ', $address, 0);
+            $question->setErrorMessage('Address %s is not in the list');
+            $question->setValidator(function ($answer) use ($input, $output, $helper) {
+                $question = new Question('Enter country: ', 0);
+                $country  = $helper->ask($input, $output, $question);
+    
+                $question = new Question('Enter city: ', 0);
+                $city     = $helper->ask($input, $output, $question);
+    
+                $question = new Question('Enter Zipcode: ', 0);
+                $zipcode  = $helper->ask($input, $output, $question);
+    
+                $question = new Question('Enter Street: ', 0);
+                $street   = $helper->ask($input, $output, $question);
+    
+                $this->repository->updateAddress($answer, [
+                    'country' => $country,
+                    'city'    => $city,
+                    'zipcode' => $zipcode,
+                    'street'  => $street,
+                ]);
+    
+                $this->displayAddress($output);
+            });
+    
+            $helper->ask($input, $output, $question);
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
 
-        foreach ($addresses as $value) {
-            $default = $value->is_default ? 'Yes' : 'No';
-
-            $address[$value->id] = $value->country . " | Default: " . $default;
+            $output->writeln("<error>$message</error>");
         }
-
-        $question = new ChoiceQuestion('Choose address to update: ', $address, 0);
-        $question->setErrorMessage('Address %s is not in the list');
-        $question->setValidator(function ($answer) use ($input, $output, $helper) {
-            $question = new Question('Enter country: ', 0);
-            $country  = $helper->ask($input, $output, $question);
-
-            $question = new Question('Enter city: ', 0);
-            $city     = $helper->ask($input, $output, $question);
-
-            $question = new Question('Enter Zipcode: ', 0);
-            $zipcode  = $helper->ask($input, $output, $question);
-
-            $question = new Question('Enter Street: ', 0);
-            $street   = $helper->ask($input, $output, $question);
-
-            $this->repository->updateAddress($answer, [
-                'country' => $country,
-                'city'    => $city,
-                'zipcode' => $zipcode,
-                'street'  => $street,
-            ]);
-
-            $this->displayAddress($output);
-        });
-
-        $helper->ask($input, $output, $question);
     }
 }

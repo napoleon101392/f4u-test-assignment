@@ -18,23 +18,29 @@ class DeleteAddress extends BaseAction
             return;
         }
 
-        $addresses = $this->repository->getAddressesByClient($this->client);
-        $helper    = $this->helper;
+        try {
+            $addresses = $this->repository->getAddressesByClient($this->client);
+            $helper    = $this->helper;
+    
+            foreach ($addresses as $value) {
+                $default = $value->is_default ? 'Yes' : 'No';
+    
+                $address[$value->id] = $value->country . " | Default ? " . $default;
+            }
+    
+            $question = new ChoiceQuestion('Choose address to Delete: ', $address, 0);
+            $question->setErrorMessage('Address %s is not in the list');
+            $question->setValidator(function ($addressId) use ($output) {
+                $this->repository->removeAddress($this->client, $addressId);
+    
+                $this->displayAddress($output);
+            });
+    
+            $helper->ask($input, $output, $question);
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
 
-        foreach ($addresses as $value) {
-            $default = $value->is_default ? 'Yes' : 'No';
-
-            $address[$value->id] = $value->country . " | Default ? " . $default;
+            $output->writeln("<error>$message</error>");
         }
-
-        $question = new ChoiceQuestion('Choose address to Delete: ', $address, 0);
-        $question->setErrorMessage('Address %s is not in the list');
-        $question->setValidator(function ($addressId) use ($output) {
-            $this->repository->removeAddress($this->client, $addressId);
-
-            $this->displayAddress($output);
-        });
-
-        $helper->ask($input, $output, $question);
     }
 }
