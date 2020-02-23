@@ -1,10 +1,9 @@
-# Documentation for the App
-
 [![Build Status](https://travis-ci.com/napoleon101392/f4u-test-assignment.svg?branch=master)](https://travis-ci.com/napoleon101392/f4u-test-assignment)
 
-> PHP Version: `7.2.*`
-> To install dependencies run `composer install`
-> To simulate the Console command, run `php app.php start`
+#### Quick start
+At the beggining, before running the application, it is required to install first the dependencies, to install just run `composer install` in your console.
+
+To start the Console Application run `php app.php start`. To rollback the addresses of the clients run `php app.php reset`.
 
 # Assignment Instruction
 
