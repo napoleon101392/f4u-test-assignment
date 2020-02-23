@@ -10,8 +10,6 @@ use Symfony\Component\Console\Question\Question;
 
 class DeleteAddress extends BaseAction
 {
-    protected $client;
-
     const ACTION = '2';
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -34,7 +32,6 @@ class DeleteAddress extends BaseAction
         $question->setValidator(function ($addressId) use ($output) {
             $this->repository->removeAddress($this->client, $addressId);
 
-            # Message successfully Delete
             $this->displayAddress($output);
         });
 

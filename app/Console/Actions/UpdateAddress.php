@@ -9,8 +9,6 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 
 class UpdateAddress extends BaseAction
 {
-    protected $client;
-
     const ACTION = '1';
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -50,7 +48,6 @@ class UpdateAddress extends BaseAction
                 'street'  => $street,
             ]);
 
-            # Message successfully update
             $this->displayAddress($output);
         });
 

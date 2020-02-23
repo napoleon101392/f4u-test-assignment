@@ -9,8 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AddAddress extends BaseAction
 {
-    protected $client;
-
     const ACTION = '0';
 
     public function execute(InputInterface $input, OutputInterface $output)

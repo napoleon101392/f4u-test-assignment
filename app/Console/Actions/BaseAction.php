@@ -6,23 +6,37 @@ use Napoleon\Services\DataService;
 use Napoleon\Repositories\ClientRepository;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class BaseAction extends Command
 {
-    protected $service;
+    /** Directory of the json file to be manipulated */
+    const JSON_DATABASE = __DIR__ . '/../../../storage/database.json';
+
+    /** Handles the selected client */
+    protected $client;
+
+    /** Manipulator for data */
     protected $repository;
 
     public function __construct()
     {
-        $this->service = new DataService(__DIR__ . '/../../../storage/database.json');
-        $this->repository = new ClientRepository($this->service);
+        $this->repository = new ClientRepository(
+            new DataService(self::JSON_DATABASE)
+        );
 
         parent::__construct();
     }
-
-    protected function displayAddress($output)
+    
+    /**
+     * Display the address as table representation
+     *
+     * @param ConsoleOutput $output
+     * @return void
+     */
+    protected function displayAddress(ConsoleOutput $output)
     {
-        try { // Display Addresses
+        try {
             $addresses = $this->repository->getAddressesByClient($this->client);
 
             $showableAddresses = [];
@@ -41,12 +55,20 @@ class BaseAction extends Command
                     ["List of Address under choosen client"],
                     ['Country', 'City', 'Zipcode', 'Street', 'Default Address'],
                 ])
-                ->setRows(array_chunk($showableAddresses, 5));
+                ->setRows(
+                    array_chunk($showableAddresses, 5)
+                );
 
             return $table->render();
         } catch (\Exception $e) {}
     }
 
+    /**
+     * Mutate the selected client
+     *
+     * @param string $client
+     * @return self
+     */
     public function setClient($client)
     {
         $this->client = $client;
@@ -54,6 +76,12 @@ class BaseAction extends Command
         return $this;
     }
 
+    /**
+     * Mutate the selected action for the address
+     *
+     * @param string $condition
+     * @return self
+     */
     public function condition($condition)
     {
         $this->condition = $condition;
@@ -61,6 +89,12 @@ class BaseAction extends Command
         return $this;
     }
 
+    /**
+     * Mutate the helper for questions of symfony
+     *
+     * @param mixed $helper
+     * @return self
+     */
     public function setHelper($helper)
     {
         $this->helper = $helper;
