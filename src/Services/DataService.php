@@ -13,7 +13,7 @@ class DataService implements DataServiceInterface
      *  so that the file manager will be the one to handle drivers
      *  such as local, s3, rockspace or whatever
      *
-     * @param [type] $path
+     * @param string $path
      */
     public function __construct($path = __DIR__ . '/../../storage/database.json')
     {
@@ -21,9 +21,9 @@ class DataService implements DataServiceInterface
     }
 
     /**
-     * Undocumented function
+     * Instance of the driver
      *
-     * @return void
+     * @return LocalManager
      */
     public function driver()
     {
