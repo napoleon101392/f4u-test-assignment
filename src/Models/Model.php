@@ -3,6 +3,7 @@
 namespace Napoleon\Models;
 
 use Napoleon\Services\DataServiceInterface;
+use Napoleon\Models\Exceptions\FieldNotFoundException;
 
 class Model
 {
@@ -67,7 +68,7 @@ class Model
     /**
      * This will insert a record
      *
-     * @param [type] $data
+     * @param array $data
      *
      * @return mixed
      */
@@ -79,7 +80,7 @@ class Model
     /**
      * To delete a record
      *
-     * @param [type] $id
+     * @param string $id
      *
      * @return mixed
      */
@@ -91,7 +92,7 @@ class Model
     /**
      * To update a record
      *
-     * @param [type] $data
+     * @param array $data
      *
      * @return mixed
      */

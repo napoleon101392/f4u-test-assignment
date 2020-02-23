@@ -47,7 +47,7 @@ class ClientRepository
     /**
      * Gets the address of a client selected
      *
-     * @param [type] $clientId
+     * @param string $clientId
      *
      * @return mixed
      */

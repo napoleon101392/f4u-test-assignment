@@ -9,9 +9,9 @@ class ShippingAddress extends Model
     /**
      * Find address by client ID
      *
-     * @param [type] $id
+     * @param string $id
      *
-     * @return void
+     * @return array
      */
     public function ofClient($id)
     {

@@ -7,37 +7,37 @@ interface FileManagerInterface
     /**
      * Undocumented function
      *
-     * @return void
+     * @return mixed
      */
     public function get();
 
     /**
      * Undocumented function
      *
-     * @param [type] $data
-     * @param [type] $table
+     * @param array $data
+     * @param string $table
      *
-     * @return void
+     * @return mixed
      */
     public function add($data, $entity);
 
     /**
      * Undocumented function
      *
-     * @param [type] $id
-     * @param [type] $entity
+     * @param string $id
+     * @param string $entity
      *
-     * @return void
+     * @return mixed
      */
     public function delete($id, $entity);
 
     /**
      * Undocumented function
      *
-     * @param [type] $data
-     * @param [type] $entity
+     * @param array $data
+     * @param string $entity
      *
-     * @return void
+     * @return mixed
      */
     public function modify($data, $entity);
 }

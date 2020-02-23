@@ -9,7 +9,7 @@ class FileException extends Exception
     /**
      * Undocumented function
      *
-     * @param [type] $path
+     * @param string $path
      * @param string $message
      */
     public function __construct($path = null, $message = 'Cant find File')
