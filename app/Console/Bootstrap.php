@@ -2,10 +2,12 @@
 
 namespace App\Console;
 
-use Napoleon\Services\DataService;
-use Napoleon\Repositories\ClientRepository;
-use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Command\Command;
+use Exception;
+use App\Console\Actions\AddAddress;
+use App\Console\Actions\BaseAction;
+use App\Console\Actions\ExitAction;
+use App\Console\Actions\DeleteAddress;
+use App\Console\Actions\UpdateAddress;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Helper\TableSeparator;
@@ -13,20 +15,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
-class Start extends Command
+class Bootstrap extends BaseAction
 {
     protected static $defaultName = 'start';
 
-    protected $choosenClient;
-
-    public function __construct()
-    {
-        $this->dataService = new DataService(__DIR__ . '/../../storage/database.json');
-
-        $this->repository = new ClientRepository($this->dataService);
-
-        parent::__construct();
-    }
+    protected $client;
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -42,25 +35,28 @@ class Start extends Command
             $question = new ChoiceQuestion('Please select Client in the list', $clients, 0);
             $question->setErrorMessage('Client %s is not in the list');
             $question->setValidator(function ($answer) {
-                $this->choosenClient = $answer;
+                $this->client = $answer;
             });
 
             $helper->ask($input, $output, $question);
 
             $this->displayAddress($output);
-        } catch (\Exception $e) {}
+        } catch (Exception $e) { return; }
 
         try { // Choosing Action for address
             $helper   = $this->getHelper('question');
-            $question = new ChoiceQuestion('Action to the addresses above', ['Add', 'Update', 'Delete'], 0);
+            $question = new ChoiceQuestion('Action to the addresses above', [
+                'Add', 'Update', 'Delete', 'Exit'
+            ], 3);
             $question->setErrorMessage('Action %s is not in the list');
             $question->setValidator(function ($answer) use ($input, $output) {
-                $client = $this->choosenClient;
+                $client = $this->client;
 
                 foreach ([
                     AddAddress::class,
                     UpdateAddress::class,
-                    DeleteAddress::class
+                    DeleteAddress::class,
+                    ExitAction::class
                 ] as $class) {
                     (new $class)
                         ->setClient($client)
@@ -71,32 +67,8 @@ class Start extends Command
             });
 
             $helper->ask($input, $output, $question);
-        } catch (\Exception $e) {}
+        } catch (Exception $e) { return; }
 
         return 0;
-    }
-
-    private function displayAddress($output)
-    {
-        try { // Display Addresses
-            $addresses = $this->repository->getAddressesByClient($this->choosenClient);
-            foreach ($addresses as $key => $address) {
-                $adds[] = $address->country;
-                $adds[] = $address->city;
-                $adds[] = $address->zipcode;
-                $adds[] = $address->street;
-                $adds[] = $address->is_default ? 'Yes' : 'No';
-            }
-
-            $table = new Table($output);
-            $table
-                ->setHeaders([
-                    ["List of Address under choosen client"],
-                    ['Country', 'City', 'Zipcode', 'Street', 'Default Address'],
-                ])
-                ->setRows(array_chunk($adds, 5));
-
-            return $table->render();
-        } catch (\Exception $e) {}
     }
 }
