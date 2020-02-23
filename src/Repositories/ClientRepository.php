@@ -11,6 +11,12 @@ use Napoleon\Repositories\Exceptions\DefaultAddressNotRemovableException;
 
 class ClientRepository
 {
+    /** interaction with client */
+    protected $clientModel;
+
+    /** interaction with shipping addresses */
+    protected $shippingAddresModel;
+    
     /**
      * Undocumented function
      *
