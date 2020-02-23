@@ -15,7 +15,7 @@ class LocalManager implements FileManagerInterface
     /**
      * Undocumented function
      *
-     * @param [type] $path_to_file
+     * @param string $path_to_file
      */
     public function __construct($path_to_file)
     {
@@ -23,9 +23,9 @@ class LocalManager implements FileManagerInterface
     }
 
     /**
-     * Undocumented function
+     * Reads the file
      *
-     * @return void
+     * @return mixed
      */
     public function get()
     {
@@ -41,12 +41,12 @@ class LocalManager implements FileManagerInterface
     }
 
     /**
-     * Undocumented function
+     * Override the file
      *
-     * @param [type] $data
-     * @param [type] $table
+     * @param string $data
+     * @param string $table
      *
-     * @return void
+     * @return boolean
      */
     public function add($data, $table)
     {
@@ -61,11 +61,11 @@ class LocalManager implements FileManagerInterface
     }
 
     /**
-     * Undocumented function
+     * It increment the id by the last record id
      *
-     * @param [type] $records
+     * @param string $records
      *
-     * @return void
+     * @return string
      */
     protected function autoIncrement($records)
     {
@@ -75,12 +75,12 @@ class LocalManager implements FileManagerInterface
     }
 
     /**
-     * Undocumented function
+     * Deletes a record in the file
      *
-     * @param [type] $id
-     * @param [type] $table
+     * @param string $id
+     * @param string $table
      *
-     * @return void
+     * @return mixed
      */
     public function delete($id, $table)
     {
@@ -107,12 +107,12 @@ class LocalManager implements FileManagerInterface
     }
 
     /**
-     * Undocumented function
+     * Updates a record
      *
-     * @param [type] $data
-     * @param [type] $table
+     * @param string $data
+     * @param string $table
      *
-     * @return void
+     * @return mixed
      */
     public function modify($data, $table)
     {
