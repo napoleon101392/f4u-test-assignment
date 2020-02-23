@@ -63,7 +63,7 @@ class LocalManager implements FileManagerInterface
     /**
      * It increment the id by the last record id
      *
-     * @param string $records
+     * @param array $records
      *
      * @return string
      */
@@ -80,7 +80,7 @@ class LocalManager implements FileManagerInterface
      * @param string $id
      * @param string $table
      *
-     * @return mixed
+     * @return boolean
      */
     public function delete($id, $table)
     {

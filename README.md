@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.com/napoleon101392/f4u-test-assignment.svg?branch=master)](https://travis-ci.com/napoleon101392/f4u-test-assignment)
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/napoleon101392/f4u-test-assignment/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/napoleon101392/f4u-test-assignment/?branch=master)
+
 #### Quick start
 At the beggining, before running the application, it is required to install first the dependencies, to install just run `composer install` in your console.
 
