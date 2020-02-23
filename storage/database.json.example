@@ -1,0 +1,30 @@
+{
+    "clients": [
+        {
+          "id": "1",
+          "firstname": "Mari",
+          "lastname": "Christensen"
+        },
+        {
+          "id": "2",
+          "firstname": "Rosa",
+          "lastname": "Case"
+        },
+        {
+          "id": "3",
+          "firstname": "French",
+          "lastname": "Cunningham"
+        },
+        {
+          "id": "4",
+          "firstname": "Ebony",
+          "lastname": "Ewing"
+        },
+        {
+          "id": "5",
+          "firstname": "Stein",
+          "lastname": "Fischer"
+        }
+      ],
+    "shipping_addresses": []
+}
