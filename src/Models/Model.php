@@ -6,11 +6,11 @@ use Napoleon\Services\DataServiceInterface;
 
 class Model
 {
-    /**  */
+    /** Manipulator for data */
     protected $dataService;
 
     /**
-     * Undocumented function
+     * Instanciate the driver for the data
      *
      * @param DataServiceInterface $dataService
      */
@@ -20,9 +20,9 @@ class Model
     }
 
     /**
-     * Undocumented function
+     * Gets all the record on the selected table
      *
-     * @return void
+     * @return mixed
      */
     public function all()
     {
@@ -30,9 +30,9 @@ class Model
     }
 
     /**
-     * Undocumented function
+     * Get the first record
      *
-     * @return void
+     * @return mixed
      */
     public function first()
     {
@@ -44,11 +44,11 @@ class Model
     }
 
     /**
-     * Undocumented function
+     * Fetch a record on specified field or condition
      *
      * @param array $condition
      *
-     * @return void
+     * @return mixed
      */
     public function where(array $condition)
     {
@@ -65,11 +65,11 @@ class Model
     }
 
     /**
-     * Undocumented function
+     * This will insert a record
      *
      * @param [type] $data
      *
-     * @return void
+     * @return mixed
      */
     public function create($data)
     {
@@ -77,11 +77,11 @@ class Model
     }
 
     /**
-     * Undocumented function
+     * To delete a record
      *
      * @param [type] $id
      *
-     * @return void
+     * @return mixed
      */
     public function delete($id)
     {
@@ -89,11 +89,11 @@ class Model
     }
 
     /**
-     * Undocumented function
+     * To update a record
      *
      * @param [type] $data
      *
-     * @return void
+     * @return mixed
      */
     public function update($data)
     {
