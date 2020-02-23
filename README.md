@@ -1,9 +1,12 @@
-# New
+# Documentation for the App
 
-To install dependencies run `composer install`
-To simulate the Console command, run `php app.php start`
+[![Build Status](https://travis-ci.com/napoleon101392/f4u-test-assignment.svg?branch=master)](https://travis-ci.com/napoleon101392/f4u-test-assignment)
 
-# Old
+> PHP Version: `7.2.*`
+> To install dependencies run `composer install`
+> To simulate the Console command, run `php app.php start`
+
+# Assignment Instruction
 
 Let's say, in our system we have two models "client" and "shipping address". Let's assume that we already have some existing (registered) clients in our storage. Let's do this simple and assume that our clients have only three properties ID, firstname and lastname.
 
